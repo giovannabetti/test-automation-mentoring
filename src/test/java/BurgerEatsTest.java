@@ -103,4 +103,5 @@ public class BurgerEatsTest {
 * 1. Como consigo selecionar um arquivo para CNH
 * 2. O site tá funcionando mesmo? Pq não consegui manualmente
 * 3. Como pegar a mensagem de erro e conferir se ela está na tela?
+* 4. Tem algum playground?
 * */
