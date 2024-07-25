@@ -1,4 +1,6 @@
 import com.driver.util.DriverConfig;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,8 +51,7 @@ public class BurgerEatsTest {
         submitButton.click();
 
         WebElement cpfAlert = driver.findElement(By.className("alert-error"));
-        cpfAlert.getText();
-        // Oops! CPF inválido
+        assertThat(cpfAlert.getText(), is("Oops! CPF inválido"));
 
         driver.quit();
 
