@@ -1,12 +1,32 @@
 import com.driver.util.DriverConfig;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+
+import com.pages.BurgerEatsPage;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class BurgerEatsTest {
+
+    private static WebDriver driver;
+
+    @BeforeAll
+    public static void beforeAll() {
+
+        driver = DriverConfig.getDriver();
+
+    }
+
+    @AfterAll
+    public static void afterAll() {
+
+        driver.quit();
+
+    }
 
     @Test
     public void invalidRegister() {
@@ -15,9 +35,6 @@ public class BurgerEatsTest {
         mensagens informando da necessidade de corrigir os campos são exibidas.
          */
 
-        // tem como colocar essa configuração uma vez só antes de todos os testes (beforeAll ou beforeEach no Cypress)
-        // só pra não ter que repetir sempre? Ou em algum arquivo separado?
-        WebDriver driver = DriverConfig.getDriver();
         driver.get("https://buger-eats.vercel.app/");
         driver.getWindowHandles();
 
@@ -26,14 +43,12 @@ public class BurgerEatsTest {
         WebElement registerButton = driver.findElement(By.xpath("//*[@id='page-home']/div/main/a"));
         registerButton.click();
 
-        WebElement nameField = driver.findElement(By.name("name"));
-        WebElement cpfField = driver.findElement(By.name("cpf"));
-        WebElement emailField = driver.findElement(By.name("email"));
-        WebElement whatsappField = driver.findElement(By.name("whatsapp"));
-        nameField.sendKeys("João Da Silva");
-        cpfField.sendKeys("000000000000000");
-        emailField.sendKeys("test@test.com");
-        whatsappField.sendKeys("3333333333");
+        BurgerEatsPage burgerEatsPage = new BurgerEatsPage();
+
+        burgerEatsPage.getNameField().sendKeys("João Da Silva");
+        burgerEatsPage.getCpfField().sendKeys("000000000000000");
+        burgerEatsPage.getEmailField().sendKeys("test@test.com");
+        burgerEatsPage.getWhatsappField().sendKeys("3333333333");
 
         WebElement cepField = driver.findElement(By.name("postalcode"));
         cepField.sendKeys("59139-160");
@@ -53,8 +68,6 @@ public class BurgerEatsTest {
         WebElement cpfAlert = driver.findElement(By.className("alert-error"));
         assertThat(cpfAlert.getText(), is("Oops! CPF inválido"));
 
-        driver.quit();
-
     }
 
     @Test
@@ -63,7 +76,6 @@ public class BurgerEatsTest {
     Efetue um cadastro completo, informando os dados necessários corretamente, selecionando o método de entrega
     “Bicicleta” (porque somos amigos da natureza 😀🚲). Valide que o cadastro foi concluído com sucesso.
     */
-        WebDriver driver = DriverConfig.getDriver();
         driver.get("https://buger-eats.vercel.app/");
         driver.getWindowHandles();
 
@@ -93,8 +105,6 @@ public class BurgerEatsTest {
 
         WebElement submitButton = driver.findElement(By.className("button-success"));
         submitButton.click();
-
-        driver.quit();
 
     }
 }
