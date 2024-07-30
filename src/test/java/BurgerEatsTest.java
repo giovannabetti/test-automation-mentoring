@@ -118,8 +118,18 @@ public class BurgerEatsTest {
         WebElement bikeButton = driver.findElement(By.xpath("//*[@id='page-deliver']/form/fieldset[3]/ul/li[2]"));
         bikeButton.click();
 
+
+        String filePath = "/home/giovannabetti/IdeaProjects/mentoria/resources/cnhpicture.png";
+        WebElement cnhPicture = driver.findElement(By.xpath("//*[@id='page-deliver']/form/div/input"));
+        cnhPicture.sendKeys(filePath);
+
         WebElement submitButton = driver.findElement(By.className("button-success"));
         submitButton.click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+
+        WebElement successModal = driver.findElement(By.id("swal2-html-container"));
+        assertThat(successModal.getText(), is("Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato."));
 
     }
 
