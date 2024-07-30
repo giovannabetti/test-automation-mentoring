@@ -130,9 +130,9 @@ public class BurgerEatsTest {
 
     @Test
     public void validRegisterRetest() {
+
         driver.get("https://buger-eats.vercel.app/");
         driver.getWindowHandles();
-
 
         BurgerEatsPage burgerEatsPage = new BurgerEatsPage();
 
@@ -148,7 +148,14 @@ public class BurgerEatsTest {
         burgerEatsPage.getCepButton().click();
         burgerEatsPage.getAddressNumberField().sendKeys("13");
         burgerEatsPage.getBikeButton().click();
+
+        // como não colocar o endereço direto aqui? é boa prática?
+        String filePath = "/home/giovannabetti/IdeaProjects/mentoria/resources/cnhpicture.png";
+        burgerEatsPage.getCnhPicture().sendKeys(filePath);
+
         burgerEatsPage.getSubmitButton().click();
+
+        assertThat(burgerEatsPage.getSuccessModal().getText(), is("Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato."));
 
     }
 

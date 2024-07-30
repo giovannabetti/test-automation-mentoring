@@ -18,7 +18,8 @@ public class BurgerEatsPage {
     private WebElement submitButton;
     private WebElement cpfAlert;
     private WebElement cnhAlert;
-
+    private WebElement successModal;
+    private WebElement cnhPicture;
 
 
     public BurgerEatsPage() {
@@ -35,6 +36,8 @@ public class BurgerEatsPage {
         submitButton = DriverConfig.getDriver().findElement(By.className("button-success"));
         cpfAlert = DriverConfig.getDriver().findElement(By.className("alert-error"));
         cnhAlert = DriverConfig.getDriver().findElement(By.className("alert-error"));
+        cnhPicture = DriverConfig.getDriver().findElement(By.xpath("//*[@id='page-deliver']/form/div/input"));
+        successModal = DriverConfig.getDriver().findElement(By.id("swal2-html-container"));
 
     }
 
@@ -137,4 +140,21 @@ public class BurgerEatsPage {
     public void setCnhAlert(WebElement cnhAlert) {
         this.cnhAlert = cnhAlert;
     }
+
+    public WebElement getSuccessModal() {
+        return successModal;
+    }
+
+    public void setSuccessModal(WebElement successModal) {
+        this.successModal = successModal;
+    }
+
+    public WebElement getCnhPicture() {
+        return cnhPicture;
+    }
+
+    public void setCnhPicture(WebElement cnhPicture) {
+        this.cnhPicture = cnhPicture;
+    }
+
 }
