@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
+
 public class BurgerEatsTest {
 
     private static WebDriver driver;
@@ -30,43 +32,56 @@ public class BurgerEatsTest {
 
     @Test
     public void invalidRegister() {
-        /*
-        Efetue uma tentativa de cadastro informando um CPF inválido e deixando de enviar a foto da CNH e valide que
-        mensagens informando da necessidade de corrigir os campos são exibidas.
-         */
 
         driver.get("https://buger-eats.vercel.app/");
         driver.getWindowHandles();
 
-        // tem como definir esses elementos em um outro arquivo ou deixá-los acessíveis para outros testes neste
-        // mesmo arquivo?
-        WebElement registerButton = driver.findElement(By.xpath("//*[@id='page-home']/div/main/a"));
-        registerButton.click();
-
         BurgerEatsPage burgerEatsPage = new BurgerEatsPage();
+
+        burgerEatsPage.getRegisterButton().click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 
         burgerEatsPage.getNameField().sendKeys("João Da Silva");
         burgerEatsPage.getCpfField().sendKeys("000000000000000");
         burgerEatsPage.getEmailField().sendKeys("test@test.com");
         burgerEatsPage.getWhatsappField().sendKeys("3333333333");
+        burgerEatsPage.getCepField().sendKeys("59139-160");
+        burgerEatsPage.getCepButton().click();
+        burgerEatsPage.getAddressNumberField().sendKeys("13");
+        burgerEatsPage.getBikeButton().click();
+        burgerEatsPage.getSubmitButton().click();
 
-        WebElement cepField = driver.findElement(By.name("postalcode"));
-        cepField.sendKeys("59139-160");
 
-        WebElement cepButton = driver.findElement(By.cssSelector("[type='button']"));
-        cepButton.click();
+        assertThat(burgerEatsPage.getCpfAlert().getText(), is("Oops! CPF inválido"));
 
-        WebElement addressNumberField = driver.findElement(By.name("address-number"));
-        addressNumberField.sendKeys("13");
+        // só aparece a mensagem da cnh se o cpf estiver correto
+    }
 
-        WebElement bikeButton = driver.findElement(By.xpath("//*[@id='page-deliver']/form/fieldset[3]/ul/li[2]"));
-        bikeButton.click();
+    @Test
+    public void invalidCnh() {
 
-        WebElement submitButton = driver.findElement(By.className("button-success"));
-        submitButton.click();
+        driver.get("https://buger-eats.vercel.app/");
+        driver.getWindowHandles();
 
-        WebElement cpfAlert = driver.findElement(By.className("alert-error"));
-        assertThat(cpfAlert.getText(), is("Oops! CPF inválido"));
+        BurgerEatsPage burgerEatsPage = new BurgerEatsPage();
+
+        burgerEatsPage.getRegisterButton().click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+
+        burgerEatsPage.getNameField().sendKeys("João Da Silva");
+        burgerEatsPage.getCpfField().sendKeys("57528767026");
+        burgerEatsPage.getEmailField().sendKeys("test@test.com");
+        burgerEatsPage.getWhatsappField().sendKeys("3333333333");
+        burgerEatsPage.getCepField().sendKeys("59139-160");
+        burgerEatsPage.getCepButton().click();
+        burgerEatsPage.getAddressNumberField().sendKeys("13");
+        burgerEatsPage.getBikeButton().click();
+        burgerEatsPage.getSubmitButton().click();
+
+
+        assertThat(burgerEatsPage.getCnhAlert().getText(), is("Adicione uma foto da sua CNH"));
 
     }
 
@@ -107,12 +122,29 @@ public class BurgerEatsTest {
         submitButton.click();
 
     }
-}
 
-/*
-* Dúvidas:
-* 1. Como consigo selecionar um arquivo para CNH
-* 2. O site tá funcionando mesmo? Pq não consegui manualmente
-* 3. Como pegar a mensagem de erro e conferir se ela está na tela?
-* 4. Tem algum playground?
-* */
+    @Test
+    public void validRegisterRetest() {
+        driver.get("https://buger-eats.vercel.app/");
+        driver.getWindowHandles();
+
+
+        BurgerEatsPage burgerEatsPage = new BurgerEatsPage();
+
+        burgerEatsPage.getRegisterButton().click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+
+        burgerEatsPage.getNameField().sendKeys("João Da Silva");
+        burgerEatsPage.getCpfField().sendKeys("57528767026");
+        burgerEatsPage.getEmailField().sendKeys("test@test.com");
+        burgerEatsPage.getWhatsappField().sendKeys("3333333333");
+        burgerEatsPage.getCepField().sendKeys("59139-160");
+        burgerEatsPage.getCepButton().click();
+        burgerEatsPage.getAddressNumberField().sendKeys("13");
+        burgerEatsPage.getBikeButton().click();
+        burgerEatsPage.getSubmitButton().click();
+
+    }
+
+}

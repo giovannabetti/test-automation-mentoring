@@ -1,4 +1,6 @@
 import com.driver.util.DriverConfig;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +9,22 @@ import org.openqa.selenium.WebElement;
 import static net.bytebuddy.matcher.ElementMatchers.is;
 
 public class BugBankTest {
+
+    private static WebDriver driver;
+
+    @BeforeAll
+    public static void beforeAll() {
+
+        driver = DriverConfig.getDriver();
+
+    }
+
+    @AfterAll
+    public static void afterAll() {
+
+        driver.quit();
+
+    }
 
     @Test
     public void createAnAccount() {
