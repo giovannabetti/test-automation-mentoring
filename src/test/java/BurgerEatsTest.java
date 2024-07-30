@@ -87,10 +87,7 @@ public class BurgerEatsTest {
 
     @Test
     public void validRegister() {
-    /*
-    Efetue um cadastro completo, informando os dados necessários corretamente, selecionando o método de entrega
-    “Bicicleta” (porque somos amigos da natureza 😀🚲). Valide que o cadastro foi concluído com sucesso.
-    */
+
         driver.get("https://buger-eats.vercel.app/");
         driver.getWindowHandles();
 
@@ -125,8 +122,6 @@ public class BurgerEatsTest {
 
         WebElement submitButton = driver.findElement(By.className("button-success"));
         submitButton.click();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 
         WebElement successModal = driver.findElement(By.id("swal2-html-container"));
         assertThat(successModal.getText(), is("Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato."));
