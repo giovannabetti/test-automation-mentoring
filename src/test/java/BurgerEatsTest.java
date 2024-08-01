@@ -116,7 +116,7 @@ public class BurgerEatsTest {
         bikeButton.click();
 
 
-        String filePath = "/home/giovannabetti/IdeaProjects/mentoria/resources/cnhpicture.png";
+        String filePath = "./resources/cnhpicture.png";
         WebElement cnhPicture = driver.findElement(By.xpath("//*[@id='page-deliver']/form/div/input"));
         cnhPicture.sendKeys(filePath);
 
@@ -149,8 +149,7 @@ public class BurgerEatsTest {
         burgerEatsPage.getAddressNumberField().sendKeys("13");
         burgerEatsPage.getBikeButton().click();
 
-        // como não colocar o endereço direto aqui? é boa prática?
-        String filePath = "/home/giovannabetti/IdeaProjects/mentoria/resources/cnhpicture.png";
+        String filePath = "resources/cnhpicture.png";
         burgerEatsPage.getCnhPicture().sendKeys(filePath);
 
         burgerEatsPage.getSubmitButton().click();

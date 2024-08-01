@@ -72,6 +72,7 @@ public class BugBankTest {
         bugBankPage.getEmailField().sendKeys("test@test.com");
         bugBankPage.getNameField().sendKeys("Joana Da Silva");
         bugBankPage.getPasswordField().sendKeys("123qwe");
+        bugBankPage.getPasswordConfirmation().sendKeys("123qwe");
         bugBankPage.getModalConfirmation().sendKeys("123qwe");
 
         bugBankPage.getBalanceToggle().click();
