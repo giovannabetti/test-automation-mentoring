@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import java.time.Duration;
 
 public class BugBankTest {
 
@@ -35,7 +38,8 @@ public class BugBankTest {
         driver.getWindowHandles();
 
         WebElement registerButton = driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div/div[1]/form/div[3]/button[2]"));
-        registerButton.click();
+//        new Actions(driver).moveToElement(registerButton).moveByOffset(dx, dy).click().perform();
+        registerButton.submit();
         // não sei porque não é clicável, é um botão
 
         WebElement emailField = driver.findElement(By.name("email"));
@@ -48,10 +52,12 @@ public class BugBankTest {
         passwordConfirmation.sendKeys("123qwe");
 
         WebElement balanceToggle = driver.findElement(By.id("toggleAddBalance"));
-        balanceToggle.click();
+        balanceToggle.submit();
 
         WebElement createAccount = driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div/div[2]/form/button"));
-        createAccount.click();
+        createAccount.submit();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
 
         WebElement modalConfirmation = driver.findElement(By.id("modalText"));
         modalConfirmation.isDisplayed();

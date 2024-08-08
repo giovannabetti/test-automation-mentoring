@@ -1,44 +1,57 @@
 package com.pages;
 
-import com.driver.util.DriverConfig;
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class BurgerEatsPage {
 
+    @FindBy(name="name")
     private WebElement nameField;
+
+    @FindBy(name="cpf")
     private WebElement cpfField;
+
+    @FindBy(name="email")
     private WebElement emailField;
+
+    @FindBy(name="whatsapp")
     private WebElement whatsappField;
+
+    @FindBy(xpath="//*[@id='page-home']/div/main/a")
     private WebElement registerButton;
+
+    @FindBy(name="postalcode")
     private WebElement cepField;
+
+    @FindBy(css="[type='button']")
     private WebElement cepButton;
+
+    @FindBy(name="address-number")
     private WebElement addressNumberField;
+
+    @FindBy(xpath="//*[@id='page-deliver']/form/fieldset[3]/ul/li[2]")
     private WebElement bikeButton;
+
+    @FindBy(className="button-success")
     private WebElement submitButton;
-    private WebElement cpfAlert;
-    private WebElement cnhAlert;
+
+    @FindBy(className="alert-error")
+    private WebElement alert;
+
+    @FindBy(id="swal2-html-container")
     private WebElement successModal;
+
+    @FindBy(xpath="//*[@id='page-deliver']/form/div/input")
     private WebElement cnhPicture;
 
 
-    public BurgerEatsPage() {
+    private WebDriver driver;
 
-        nameField = DriverConfig.getDriver().findElement(By.name("name"));
-        cpfField = DriverConfig.getDriver().findElement(By.name("cpf"));
-        emailField = DriverConfig.getDriver().findElement(By.name("email"));
-        whatsappField = DriverConfig.getDriver().findElement(By.name("whatsapp"));
-        registerButton = DriverConfig.getDriver().findElement(By.xpath("//*[@id='page-home']/div/main/a"));
-        cepField = DriverConfig.getDriver().findElement(By.name("postalcode"));
-        cepButton = DriverConfig.getDriver().findElement(By.cssSelector("[type='button']"));
-        addressNumberField = DriverConfig.getDriver().findElement(By.name("address-number"));
-        bikeButton = DriverConfig.getDriver().findElement(By.xpath("//*[@id='page-deliver']/form/fieldset[3]/ul/li[2]"));
-        submitButton = DriverConfig.getDriver().findElement(By.className("button-success"));
-        cpfAlert = DriverConfig.getDriver().findElement(By.className("alert-error"));
-        cnhAlert = DriverConfig.getDriver().findElement(By.className("alert-error"));
-        cnhPicture = DriverConfig.getDriver().findElement(By.xpath("//*[@id='page-deliver']/form/div/input"));
-        successModal = DriverConfig.getDriver().findElement(By.id("swal2-html-container"));
-
+    public BurgerEatsPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public WebElement getNameField() {
@@ -125,20 +138,12 @@ public class BurgerEatsPage {
         this.submitButton = submitButton;
     }
 
-    public WebElement getCpfAlert() {
-        return cpfAlert;
+    public WebElement getAlert() {
+        return alert;
     }
 
-    public void setCpfAlert(WebElement cpfAlert) {
-        this.cpfAlert = cpfAlert;
-    }
-
-    public WebElement getCnhAlert() {
-        return cnhAlert;
-    }
-
-    public void setCnhAlert(WebElement cnhAlert) {
-        this.cnhAlert = cnhAlert;
+    public void setAlert(WebElement alert) {
+        this.alert = alert;
     }
 
     public WebElement getSuccessModal() {
